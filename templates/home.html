@@ -1,0 +1,8 @@
+{% extends '_base.html' %}
+{% load static %}
+ {% block title %}Home{% endblock title %} 
+{% block content %}
+<h1>Acceleration / Python / Web II Step task</h1>
+<p>hello {{ user.email }}</p>
+<img class='bookcover' src="{% static 'images/django-logo-positive.png' %}" alt="django for proffesionals">
+{% endblock content %}

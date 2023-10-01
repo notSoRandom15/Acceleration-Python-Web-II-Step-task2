@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+{% block title %}Author Requests{% endblock title %}
+{% block content %}
+    <h2>Author Requests</h2>
+    <ul>
+        {% for request in requests %}
+            <li>
+                Book: {{ request.book.title }}
+                <form method="post" action="{% url 'accept_request' request.pk %}">
+                    {% csrf_token %}
+                    <button class='btn btn-primary' type="submit" name="action" value="accept">Accept</button>
+                    <button class='btn btn-primary' type="submit" name="action" value="decline">Decline</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

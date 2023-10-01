@@ -1,0 +1,60 @@
+{% extends '_base.html' %}
+{% block title %}{{ book.title }}{% endblock title %}
+{% block content %}
+
+<button class='btn btn-light btn-lg button-update'>
+<a href="{% url "book_update" pk=book.pk %}">update the book</a>
+</button>
+<div class='book-detail'>
+        {% if book.cover %}
+        <img class='bookcover' src="{{ book.cover.url }}" alt="{{ book.title }}">
+        {% endif %}
+        <h2>{{ book.title }}</h2>
+        <p>Author: {{ book.author }}</p>
+        <p>Price: {{ book.price }}$</p>
+        <p>book is uploaded by {{ book.uploaded_by }}</p>
+        {% if book.genre %}
+            <p>Genre: {{ book.genre }}</p>
+        {% endif %}
+        {% if book.location %}
+            <p>You can get the book at <b>{{ book.location }}</b></p>
+        {% endif %}
+        {% if can_request %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <button class='btn btn-primary' type="submit">Request this book</button>
+            </form>
+            {% elif already_requested%}
+            <p>You have requested this book</p>
+        {% endif %}
+        {% if user != book.uploaded_by %}
+            <!-- Display messages for the user who accepted/declined the request -->
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        {% endif %}
+        
+
+        <a href="{% url 'author_requests' %}">View Requests from Readers</a>
+
+        
+        <div>
+            <hr>
+        <h3>Reviews</h3>
+        {% if book.Review %}
+        <ul>
+            {% for review in book.reviews.all %}
+            <li>{{ review.review }} </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <ul>No review</ul>
+        {% endif %}
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends '_base.html' %}
+{% block title %}Books{% endblock title %}
+
+
+{% block content %}
+
+<p>Upload your own book to let others read it</p>
+<button class='btn btn-light btn-lg button-add '>
+    <a href="{% url "book_form" %}">add a book </a>
+</button>
+
+<hr>
+
+<h3 class='book-page-title'>Django books for software developers</h3>
+
+
+<hr>
+
+<form action="{% url "book_list" %}" method="get">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" value='submit' class='btn btn-primary'>filter</button>
+</form>
+
+<hr>
+
+<div class='book-container'>
+    {% for book in book_list %}
+        <div class='book-list-container {% if book.isReccomended %}reccomended-book{% endif %}'>
+            <h4><a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+                <hr>
+                <span class='book-upload'>book is uploaded by {{ book.uploaded_by }}<span>
+            </h4>
+            <hr>
+            {% if book.cover %}
+            <img class='book-list-img' src="{{ book.cover.url }}" alt="book cover">
+            {% else %}
+            <p>no cover image available</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "_base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Book Update{% endblock title %}
+
+
+<h3>Update your book</h3>
+<hr>
+
+{% block content %}
+    Update your Book
+
+    <form action="{% url 'book_update' pk=book.pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class='btn btn-primary' type="submit">Update</button>
+        
+    </form>
+
+    <a href="{% url "book_list" %}" class='btn btn-secondary mt-3'>Back to Book List</a>
+
+{% endblock content %}

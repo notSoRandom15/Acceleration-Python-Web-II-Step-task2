@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+{% block title %}Search{% endblock title %}
+
+
+{% block content %}
+    <h1>Search Results</h1>
+    <div class='book-container'>
+        {% for book in book_list %}
+            <div class='book-list-container {% if book.isReccomended %}reccomended-book{% endif %}'>
+                <h4><a href="{{ book.get_absolute_url }}">{{ book.title }}
+                    {% if book.isReccomended %}<i class="fa fa-check-square" aria-hidden="true"></i>
+                    {% endif %}
+                </a></h4>
+                <hr>
+                {% if book.cover %}
+                <img class='book-list-img' src="{{ book.cover.url }}" alt="book cover">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>{% endblock content %}
