@@ -17,9 +17,9 @@ Acceleration / Python / Web II Step task
 
 1. Install all the dependencies from the `requirements.txt` file by running the following Docker command: ```docker-compose up -d --build```
 
-Start the container by typing: ```docker-compose up -d```
-
 make migrations to run the project: ```docker-compose exec web python manage.py migrate```
+
+Start the container by typing: ```docker-compose up -d```
 
 User Authentication: 
 For user authentication, we use django-allauth because it is easy to customize and very simple. It is also considered safe due to thorough testing.
